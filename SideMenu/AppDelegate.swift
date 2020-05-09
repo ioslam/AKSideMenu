@@ -7,15 +7,32 @@
 //
 
 import UIKit
-
+import AKSideMenu
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        var window: UIWindow?
+
         // Override point for customization after application launch.
-        return true
+          window = UIWindow.init(frame: UIScreen.main.bounds)
+
+         // Create content and menu controllers
+           let navigationController: UINavigationController = UINavigationController.init(rootViewController: FirstVC.init())
+           let leftMenuViewController: FirstVC = FirstVC.init()
+           let rightMenuViewController: SecondVC = SecondVC.init()
+
+           // Create side menu controller
+           let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+
+           // Make it a root controller
+           window!.rootViewController = sideMenuViewController
+
+           window!.backgroundColor = UIColor.white
+           window?.makeKeyAndVisible()
+           return true
     }
 
     // MARK: UISceneSession Lifecycle
